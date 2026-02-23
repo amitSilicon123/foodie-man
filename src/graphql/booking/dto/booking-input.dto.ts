@@ -1,8 +1,8 @@
-import { ObjectType, Field, FIELD_RESOLVER_MIDDLEWARE_METADATA } from '@nestjs/graphql';
+import { ObjectType, InputType, Field } from '@nestjs/graphql';
 import { GraphQLBigInt } from 'graphql-scalars';
 
 
-@ObjectType()
+@InputType()
 export class CreateBookingInput {
     @Field()
     eventDate: string;

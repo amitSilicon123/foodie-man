@@ -45,12 +45,25 @@ export type DocumentStatus = (typeof DocumentStatus)[keyof typeof DocumentStatus
 
 
 export const PaymentStatus = {
-  paid: 'paid',
   pending: 'pending',
-  failed: 'failed'
+  partial: 'partial',
+  paid: 'paid',
+  failed: 'failed',
+  refunded: 'refunded',
+  cancelled: 'cancelled',
+  expired: 'expired'
 } as const
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const PaymentOption = {
+  advance: 'advance',
+  full: 'full',
+  cash_after_service: 'cash_after_service'
+} as const
+
+export type PaymentOption = (typeof PaymentOption)[keyof typeof PaymentOption]
 
 
 export const BookingStatus = {

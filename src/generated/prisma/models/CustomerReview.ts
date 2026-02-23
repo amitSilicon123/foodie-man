@@ -487,10 +487,6 @@ export type CustomerReviewUncheckedUpdateManyWithoutVendorNestedInput = {
   deleteMany?: Prisma.CustomerReviewScalarWhereInput | Prisma.CustomerReviewScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type CustomerReviewCreateWithoutCustomerInput = {
   id?: bigint | number
   rating: number

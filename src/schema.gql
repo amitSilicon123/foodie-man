@@ -214,10 +214,20 @@ enum BookingStatus {
 
 type Mutation {
   login(input: LoginInput!): LoginListResponseWrapper!
-  createBooking: BookingResponseWrapper!
+  createBooking(input: CreateBookingInput!): BookingResponseWrapper!
 }
 
 input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateBookingInput {
+  eventDate: String!
+  guestCount: String!
+  location: String!
+  description: String!
+  paidAmount: Boolean!
+  fullAmount: Boolean!
+  paymentOption: String!
 }
