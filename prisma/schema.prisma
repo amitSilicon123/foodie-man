@@ -1,0 +1,281 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  engineType   = "binary"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                BigInt            @id @default(autoincrement())
+  name              String            @db.VarChar(100)
+  phone             String            @db.VarChar(15)
+  email             String            @unique @db.VarChar(255)
+  password          String            @db.VarChar(255)
+  role              String            @default("user") @db.VarChar(50)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  accountStatus     AccountStatus     @default(active)
+  operationalStatus OperationalStatus @default(pending)
+  booking           Booking[]
+  customerReview    CustomerReview[]
+  influencer        Influencer?
+  vendor            Vendor?
+
+  @@index([email], map: "idx_user_email")
+  @@map("users")
+}
+
+model Vendor {
+  id                      BigInt                    @id @default(autoincrement())
+  userId                  BigInt                    @unique
+  shopName                String                    @db.VarChar(150)
+  description             String
+  categoryId              Int
+  lat                     Float
+  lng                     Float
+  address                 String
+  varified                Boolean                   @default(false)
+  avgRating               Decimal                   @default(0) @db.Decimal(3, 2)
+  minPrice                Decimal                   @default(0) @db.Decimal(10, 2)
+  createdAt               DateTime                  @default(now())
+  booking                 Booking[]
+  customerReview          CustomerReview[]
+  influencerCollaboration InfluencerCollaboration[]
+  influencerReview        InfluencerReview[]
+  menu                    Menu[]
+  vendorDocument          VendorDocument?
+  user                    User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  category    Category @relation(fields: [categoryId], references: [id])
+  @@map("vendors")
+}
+
+model Menu {
+  id        BigInt   @id @default(autoincrement())
+  vendorId  BigInt
+  name      String   @db.VarChar(120)
+  price     Decimal  @default(0) @db.Decimal(10, 2)
+  unit      String   @db.VarChar(50)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  vendor    Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+  @@index([price])
+  @@map("menus")
+}
+
+model Booking {
+  id            BigInt        @id @default(autoincrement())
+  vendorId      BigInt
+  customerId    BigInt
+  
+  guestCount    Int           @default(0)
+
+  paidAmount    Decimal?      @db.Decimal(10, 2) @default(0)
+  fullAmount    Decimal       @db.Decimal(10, 2) @default(0)
+  
+  location      String        @db.VarChar(255)  @default("NA")
+  bookingCode   String        @unique @db.VarChar(64)
+  
+  bookingStatus BookingStatus @default(request)
+  paymentStatus PaymentStatus @default(pending)
+  paymentOption PaymentOption @default(advance)
+
+  eventDate     DateTime      @default(now())
+  serviceDate   DateTime?
+  
+  description   String?       @db.Text
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  user          User          @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  vendor        Vendor        @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@map("bookings")
+}
+
+model VendorDocument {
+  id          BigInt         @id @default(autoincrement())
+  vendorId    BigInt         @unique
+  docType     DocumentType
+  docNumber   String         @db.VarChar(100)
+  docUrl      String         @db.VarChar(255)
+  docStatus   DocumentStatus @default(pending)
+  submittedAt DateTime       @default(now())
+  varifiedAt  DateTime?
+  vendor      Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@map("vendor_documents")
+}
+
+model CustomerReview {
+  id         BigInt   @id @default(autoincrement())
+  customerId BigInt
+  vendorId   BigInt
+  rating     Int
+  comment    String?
+  createdAt  DateTime @default(now())
+  customer   User     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  vendor     Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@map("customer_reviews")
+}
+
+model Influencer {
+  id                      BigInt                    @id @default(autoincrement())
+  userId                  BigInt                    @unique
+  category                String                    @db.VarChar(50)
+  followersCount          Int                       @default(0)
+  socialProfileUrl        String                    @db.VarChar(255)
+  verified                Boolean                   @default(false)
+  verificationSource      VarificationSource?
+  verifiedAt              DateTime?
+  createdAt               DateTime                  @default(now())
+  influencerCollaboration InfluencerCollaboration[]
+  influencerReview        InfluencerReview[]
+  user                    User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("influencers")
+}
+
+model InfluencerCollaboration {
+  id                 BigInt              @id @default(autoincrement())
+  vendorId           BigInt
+  influencerId       BigInt
+  scheduledAt        DateTime
+  status             CollaborationStatus @default(requested)
+  compensationType   CompensationType?
+  compensationAmount Decimal?            @db.Decimal(10, 2)
+  notes              String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  influencer         Influencer          @relation(fields: [influencerId], references: [id], onDelete: Cascade)
+  vendor             Vendor              @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  influencerReview   InfluencerReview?   @relation("CollaborationReview")
+
+  @@index([vendorId])
+  @@index([influencerId])
+  @@map("influencer_collaborations")
+}
+
+model InfluencerReview {
+  id               BigInt                  @id @default(autoincrement())
+  collaborationId  BigInt                  @unique
+  vendorId         BigInt
+  influencerId     BigInt
+  caption          String?
+  rating           Int?
+  mediaUrl         String                  @db.VarChar(255)
+  mediaType        MediaType
+  moderationStatus ReviewStatus            @default(pending)
+  publishedAt      DateTime?
+  createdAt        DateTime                @default(now())
+  updatedAt        DateTime                @updatedAt
+  collaboration    InfluencerCollaboration @relation("CollaborationReview", fields: [collaborationId], references: [id], onDelete: Cascade)
+  influencer       Influencer              @relation(fields: [influencerId], references: [id], onDelete: Cascade)
+  vendor           Vendor                  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@map("influencer_reviews")
+}
+
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  slug      String   @unique
+  iconUrl   String?
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+
+  vendors   Vendor[]
+
+  createdAt DateTime @default(now())
+
+  @@map("category")
+}
+
+
+enum AccountStatus {
+  active
+  blocked
+}
+
+enum OperationalStatus {
+  pending
+  active
+  inactive
+}
+
+enum DocumentType {
+  aadhaar
+  pan
+  fssai
+}
+
+enum DocumentStatus {
+  pending
+  approved
+  rejected
+}
+
+enum PaymentStatus {
+  pending
+  partial
+  paid
+  failed
+  refunded
+  cancelled
+  expired 
+}
+
+enum PaymentOption {
+  advance
+  full
+  cash_after_service
+}
+
+enum BookingStatus {
+  request
+  accepted
+  declined
+  completed
+  cancelled
+  refunded
+}
+
+enum VarificationSource {
+  instagram
+  youtube
+  facebook
+}
+
+enum MediaType {
+  image
+  video
+}
+
+enum ReviewStatus {
+  pending
+  approved
+  rejected
+}
+
+enum CollaborationStatus {
+  requested
+  accepted
+  rejected
+  completed
+  cancelled
+}
+
+enum CompensationType {
+  cash
+  barter
+  free_food
+}
