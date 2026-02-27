@@ -25,9 +25,9 @@ import { GraphqlModule } from './graphql/graphql.module';
 
 import { join } from 'path';
 
-import {
-  ApolloServerPluginLandingPageLocalDefault,
-} from '@apollo/server/plugin/landingPage/default';
+//import {
+ // ApolloServerPluginLandingPageLocalDefault,
+//} from '@apollo/server/plugin/landingPage/default';
 import { CategoryModule } from './category/category.module';
 
 @Module({
@@ -49,11 +49,11 @@ import { CategoryModule } from './category/category.module';
      //  sandbox: true,     // enable Apollo Sandbox
 
      // introspection: true, // required for UI
-     plugins: [
-        ApolloServerPluginLandingPageLocalDefault({
-          footer: false,
-        }),
-      ],
+  //   plugins: [
+     //   ApolloServerPluginLandingPageLocalDefault({
+     //     footer: false,
+     //   }),
+    //  ],
       
       context: ({ req }) => ({ req }), // ✅ important for AuthGuard
       /*formatError: (error) => {
