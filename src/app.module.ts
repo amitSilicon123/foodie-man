@@ -1,67 +1,85 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
-import { join } from 'path';
-
-import { GraphQLModule } from '@nestjs/graphql';
-import { MercuriusDriver } from '@nestjs/mercurius';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
+import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { PrismaService } from './prisma/prisma.service';
+import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { AuthGuard } from './auth/auth.guard';
+import { APP_GUARD } from '@nestjs/core';
+import { CustomersController } from './customers/customers.controller';
+import { CustomersService } from './customers/customers.service';
 import { VendorModule } from './vendor/vendor.module';
 import { BookingModule } from './booking/booking.module';
 import { InfluencerModule } from './influencer/influencer.module';
 import { ReviewModule } from './review/review.module';
 import { CaslModule } from './casl/casl.module';
-import { CategoryModule } from './category/category.module';
-
-import { CustomersController } from './customers/customers.controller';
-import { CustomersService } from './customers/customers.service';
-import { AuthGuard } from './auth/auth.guard';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+//import { AppResolver } from './graphql/app.resolver';
+import { AuthResolver } from './graphql/auth/auth.resolver';
 import { GraphqlModule } from './graphql/graphql.module';
 
+import { join } from 'path';
+
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+} from '@apollo/server/plugin/landingPage/default';
+import { CategoryModule } from './category/category.module';
+
 @Module({
-  imports: [
-    // ✅ Load ENV
+    imports: [GraphqlModule,
+    AuthModule, UserModule, PrismaModule, VendorModule, BookingModule, InfluencerModule, ReviewModule, CaslModule
+  ,
+   // ✅ LOAD ENV VARIABLES (MOST IMPORTANT)
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+      }),
+      GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+       autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // generates schema automatically
+      playground: false, // for testing
+      debug: true,
+      // ✅ REQUIRED
+      introspection: true,
+     //  sandbox: true,     // enable Apollo Sandbox
+
+     // introspection: true, // required for UI
+     plugins: [
+        ApolloServerPluginLandingPageLocalDefault({
+          footer: false,
+        }),
+      ],
+      
+      context: ({ req }) => ({ req }), // ✅ important for AuthGuard
+      /*formatError: (error) => {
+        const code = error.extensions?.code;
+
+        if (code === 'GRAPHQL_VALIDATION_FAILED') {
+          return {
+            success: false,
+            message: 'Invalid request',
+            code: 'VALIDATION_ERROR',
+          };
+        }
+
+        return {
+          success: false,
+          message: 'Internal server errordd',
+          code: 'INTERNAL_SERVER_ERROR',
+        };
+      },*/
     }),
-
-    // ✅ GraphQL with Mercurius
-    GraphQLModule.forRoot({
-      driver: MercuriusDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      graphiql: true,      // enable GraphiQL UI
-      path: '/graphql',
-      context: (req) => ({ req }), // important for AuthGuard
-    }),
-
-    GraphqlModule,
-    AuthModule,
-    UserModule,
-    PrismaModule,
-    VendorModule,
-    BookingModule,
-    InfluencerModule,
-    ReviewModule,
-    CaslModule,
-    CategoryModule,
-  ],
-
+      CategoryModule],
+  //controllers: [AppController, AuthController],
   controllers: [AppController, CustomersController],
-
-  providers: [
-    AppService,
-    CustomersService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-  ],
+  providers: [AuthModule, AppService, UserService , {
+    provide: APP_GUARD,
+    useClass: AuthGuard,
+  }, CustomersService],
 })
 export class AppModule {}

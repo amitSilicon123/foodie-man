@@ -20,17 +20,18 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@apollo/server": "^5.2.0",
     "@as-integrations/fastify": "^3.1.0",
     "@casl/ability": "^6.7.5",
     "@fastify/cors": "^11.2.0",
     "@fastify/formbody": "^8.0.2",
+    "@nestjs/apollo": "^13.2.3",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
-    "@nestjs/graphql": "^13.2.4",
+    "@nestjs/graphql": "^13.2.3",
     "@nestjs/jwt": "^11.0.2",
     "@nestjs/mapped-types": "*",
-    "@nestjs/mercurius": "^13.2.4",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/platform-fastify": "^11.1.9",
     "@nestjs/throttler": "^6.5.0",
@@ -43,7 +44,6 @@
     "express": "^5.2.1",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.25.0",
-    "mercurius": "^16.7.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
@@ -75,22 +75,5 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }
