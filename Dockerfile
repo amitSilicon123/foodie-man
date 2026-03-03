@@ -2,13 +2,13 @@ FROM node:20.19.0
 
 WORKDIR /app
 
-# 1️⃣ Copy full project first (including prisma folder)
 COPY . .
 
-# 2️⃣ Install dependencies
 RUN npm install
 
-# 3️⃣ Build project
+# 👇 generate AFTER install but WITHOUT needing env
+RUN npx prisma generate --schema=./prisma/schema.prisma
+
 RUN npm run build
 
 EXPOSE 3000
