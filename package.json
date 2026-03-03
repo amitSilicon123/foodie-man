@@ -6,7 +6,7 @@
   "description": "",
   "author": "",
   "engines": {
-    "node": ">=20"
+    "node": "20.19.x"
   },
   "scripts": {
     "build": "nest build",
@@ -49,7 +49,7 @@
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.10.7",
+    "@types/node": "^20.19.0",
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.18.0",
