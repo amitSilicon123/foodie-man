@@ -42,14 +42,14 @@ import { CategoryModule } from './category/category.module';
       GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
        autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // generates schema automatically
-      playground: true, // for testing
-      debug: process.env.NODE_ENV !== 'production',
+      playground: false, // for testing
+      debug: true,
       // ✅ REQUIRED
       introspection: true,
      //  sandbox: true,     // enable Apollo Sandbox
 
      // introspection: true, // required for UI
-    plugins: [
+     plugins: [
         ApolloServerPluginLandingPageLocalDefault({
           footer: false,
         }),
