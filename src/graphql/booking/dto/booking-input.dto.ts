@@ -1,27 +1,42 @@
-import { ObjectType, InputType, Field } from '@nestjs/graphql';
-import { GraphQLBigInt } from 'graphql-scalars';
-
+import { InputType, Field, Int, Float } from '@nestjs/graphql';
+import { IsInt, IsString, IsNumber } from 'class-validator';
 
 @InputType()
 export class CreateBookingInput {
-    @Field()
-    eventDate: string;
 
-    @Field()
-    guestCount: string;
+  @Field(() => Int)
+  @IsInt()
+  vendorId: number;
 
-    @Field()
-    location: string;
+  @Field(() => Int)
+  @IsInt()
+  customerId: number;
 
-    @Field()
-    description: string;
+  @Field()
+  @IsString()
+  eventDate: string;
 
-    @Field()
-    paidAmount: boolean;
+  @Field(() => Int)
+  @IsInt()
+  guestCount: number;
 
-    @Field()
-    fullAmount: boolean;
+  @Field()
+  @IsString()
+  location: string;
 
-    @Field()
-    paymentOption: string;
+  @Field()
+  @IsString()
+  description: string;
+
+  @Field(() => Float)
+  @IsNumber()
+  paidAmount: number;
+
+  @Field(() => Float)
+  @IsNumber()
+  fullAmount: number;
+
+  @Field(() => String)
+  @IsString()
+  paymentOption: PaymentOptions;
 }

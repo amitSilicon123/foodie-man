@@ -17,69 +17,46 @@ import { BookingModule } from './booking/booking.module';
 import { InfluencerModule } from './influencer/influencer.module';
 import { ReviewModule } from './review/review.module';
 import { CaslModule } from './casl/casl.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+//import { GraphQLModule } from '@nestjs/graphql';
+//import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 //import { AppResolver } from './graphql/app.resolver';
 import { AuthResolver } from './graphql/auth/auth.resolver';
 import { GraphqlModule } from './graphql/graphql.module';
 
 import { join } from 'path';
 
-import {
-  ApolloServerPluginLandingPageLocalDefault,
-} from '@apollo/server/plugin/landingPage/default';
+
 import { CategoryModule } from './category/category.module';
 
 @Module({
-    imports: [GraphqlModule,
-    AuthModule, UserModule, PrismaModule, VendorModule, BookingModule, InfluencerModule, ReviewModule, CaslModule
-  ,
-   // ✅ LOAD ENV VARIABLES (MOST IMPORTANT)
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env',
+    imports: [
+      ConfigModule.forRoot({
+      isGlobal: true, // makes env available everywhere
       }),
-      GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-       autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // generates schema automatically
-      playground: false, // for testing
-      debug: true,
-      // ✅ REQUIRED
-      introspection: true,
-     //  sandbox: true,     // enable Apollo Sandbox
-
-     // introspection: true, // required for UI
-     plugins: [
-        ApolloServerPluginLandingPageLocalDefault({
-          footer: false,
-        }),
-      ],
-      
-      context: ({ req }) => ({ req }), // ✅ important for AuthGuard
-      /*formatError: (error) => {
-        const code = error.extensions?.code;
-
-        if (code === 'GRAPHQL_VALIDATION_FAILED') {
-          return {
-            success: false,
-            message: 'Invalid request',
-            code: 'VALIDATION_ERROR',
-          };
-        }
-
-        return {
-          success: false,
-          message: 'Internal server errordd',
-          code: 'INTERNAL_SERVER_ERROR',
-        };
-      },*/
-    }),
-      CategoryModule],
+      GraphqlModule,
+      AuthModule, 
+      UserModule, 
+      PrismaModule, 
+      VendorModule, 
+      BookingModule, 
+      InfluencerModule, 
+      ReviewModule, 
+      CaslModule,
+      CategoryModule
+    ],
   //controllers: [AppController, AuthController],
-  controllers: [AppController, CustomersController],
-  providers: [AuthModule, AppService, UserService , {
-    provide: APP_GUARD,
-    useClass: AuthGuard,
-  }, CustomersService],
+  controllers: [
+    AppController, 
+    CustomersController
+  ],
+  providers: [
+    AuthModule, 
+    AppService, 
+    UserService , 
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    }, CustomersService
+  ],
 })
 export class AppModule {}

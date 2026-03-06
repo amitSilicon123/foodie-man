@@ -14,7 +14,7 @@ import { UserModule } from 'src/user/user.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => ({
-        secret: config.get<string>('JWT_SECRET') || 'default_secret',
+        secret: config.get<string>('JWT_SECRET'),
         signOptions: { expiresIn: '1h' },
       }),
     }),
@@ -24,6 +24,7 @@ import { UserModule } from 'src/user/user.module';
     AuthService, // shared service
   ],
   exports: [
+    JwtModule,   // ⚡ IMPORTANT
     AuthService, //   export if other GraphQL modules need it
   ],
 })

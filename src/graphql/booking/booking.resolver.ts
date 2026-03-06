@@ -1,32 +1,22 @@
 import { Resolver, Query, Args, registerEnumType, Mutation } from '@nestjs/graphql';
 import { BookingService } from '../../booking/booking.service'
 import { BookingResponse } from './dto/booking-response.dto'
-import { Public } from '../../auth/auth.guard';
-import { BookingResponseWrapper } from './dto/booking-response-wrapper.dto';
+
+import { BookingResponseWrapper, CustomerBookingResponseWrapper } from './dto/booking-response-wrapper.dto';
 import { BookingStatus } from '../../generated/prisma/client';
 import { CreateBookingInput } from './dto/booking-input.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard, Public } from '../../auth/auth.guard';
 
 registerEnumType(BookingStatus, {
   name: 'BookingStatus',
 });
 
 @Resolver( () => BookingResponseWrapper)
+
 export class BookingResolver {
     constructor(private readonly bookingService: BookingService) { }
     
-    /*@Public()
-    @Query(() => BookingResponseWrapper)
-    async customerBooking(@Args('status') status: BookingStatus, @Args('isEqual') isEqual: boolean): Promise<BookingResponseWrapper> {
-        console.log("Hello Booking resolver"); 
-        const bookings = await this.bookingService.getCustomerBookingsByStatus(status, isEqual);
-        //console.log(JSON.stringify(bookings, null, 2));
-        console.log(bookings);
-        return {
-            success: true,
-            message: "booking fetched successfully",
-            data: bookings as any
-        };
-    }*/
     @Public()
     @Query(() => BookingResponseWrapper)
     async customerBooking(
@@ -41,10 +31,19 @@ export class BookingResolver {
             };
     }
 
-    @Mutation(() => BookingResponseWrapper)
+  
+    @Mutation(() => CustomerBookingResponseWrapper)
+    @UseGuards(AuthGuard)
     async createBooking(
         @Args('input') input : CreateBookingInput,
-        ) : Promise<BookingResponseWrapper>{
-        return {} as any;
+        ) : Promise<CustomerBookingResponseWrapper>{
+
+        const booking = await this.bookingService.createBooking(input);
+        return {
+            success: true,
+            message: 'booking created successfully',
+            data: booking as any
+        };
+    
     }
 }

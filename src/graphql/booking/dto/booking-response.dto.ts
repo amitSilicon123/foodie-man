@@ -1,4 +1,4 @@
-import { ObjectType, Field, FIELD_RESOLVER_MIDDLEWARE_METADATA } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { GraphQLBigInt } from 'graphql-scalars';
 import { VendorDetailResponse } from 'src/graphql/vendor/dto/vendor-response.dto';
 
@@ -68,6 +68,35 @@ export class BookingResponse {
 
     @Field(() => VendorDetailResponse)
     vendor : VendorDetailResponse
+}
+
+@ObjectType()
+export class CustomerBookingResponse {
+    @Field()
+    bookingCode: string;
+    
+    @Field(() => Date)   
+    eventDate: string; 
+
+    @Field()
+    guestCount: number; 
+    
+    @Field()
+    location: string;
+
+    @Field()
+    paidAmount: number;
+
+    @Field()
+    fullAmount: number;
+
+    @Field()
+    paymentOption: string;
+
+    @Field(() => VendorDetailResponse)
+    vendor : VendorDetailResponse 
+
+
 }
 
 

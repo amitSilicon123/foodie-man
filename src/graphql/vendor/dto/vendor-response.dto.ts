@@ -63,8 +63,8 @@ export class VendorDetailResponse {
   @Field()
   avgRating: number;
 
-  //@Field(() =>  UserResponse, {nullable : true})
-  //user? : UserResponse;
+  @Field(() =>  UserResponse, {nullable : true})
+  user? : UserResponse;
 }
 
 
