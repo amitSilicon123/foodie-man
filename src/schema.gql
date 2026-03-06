@@ -243,7 +243,6 @@ input LoginInput {
 
 input CreateBookingInput {
   vendorId: Int!
-  customerId: Int!
   eventDate: String!
   guestCount: Int!
   location: String!

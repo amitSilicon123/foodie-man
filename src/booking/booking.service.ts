@@ -88,13 +88,13 @@ export class BookingService {
         return `BK-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     }
 
-    async createBooking(input : CreateBookingInput){
+    async createBooking(input : CreateBookingInput, customerId : number){
         const bookingCode = this.generateBookingCode();
         return this.prisma.booking.create({
             data: {
                 bookingCode: bookingCode, // 👈 required field
                 vendorId: input.vendorId,
-                customerId: input.customerId,
+                customerId: customerId,
                 eventDate: new Date(input.eventDate),
                 serviceDate: new Date(input.eventDate),
                 guestCount: input.guestCount,
@@ -102,7 +102,7 @@ export class BookingService {
                 description: input.description,
                 paidAmount: input.paidAmount,
                 fullAmount: input.fullAmount,
-                // paymentOption: input.paymentOption,
+                //paymentOption: input.paymentOption,
             },
             select : {
                 bookingCode: true,

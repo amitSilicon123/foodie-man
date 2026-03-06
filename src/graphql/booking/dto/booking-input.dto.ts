@@ -8,10 +8,6 @@ export class CreateBookingInput {
   @IsInt()
   vendorId: number;
 
-  @Field(() => Int)
-  @IsInt()
-  customerId: number;
-
   @Field()
   @IsString()
   eventDate: string;

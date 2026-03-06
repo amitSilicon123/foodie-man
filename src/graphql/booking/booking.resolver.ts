@@ -1,4 +1,4 @@
-import { Resolver, Query, Args, registerEnumType, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args, registerEnumType, Mutation, Context  } from '@nestjs/graphql';
 import { BookingService } from '../../booking/booking.service'
 import { BookingResponse } from './dto/booking-response.dto'
 
@@ -33,12 +33,13 @@ export class BookingResolver {
 
   
     @Mutation(() => CustomerBookingResponseWrapper)
-    @UseGuards(AuthGuard)
+   // @UseGuards(AuthGuard)
     async createBooking(
-        @Args('input') input : CreateBookingInput,
+        @Args('input') input : CreateBookingInput,  @Context() context : any,
         ) : Promise<CustomerBookingResponseWrapper>{
-
-        const booking = await this.bookingService.createBooking(input);
+            const customerId = context.req.user.sub;  
+            
+        const booking = await this.bookingService.createBooking(input, customerId);
         return {
             success: true,
             message: 'booking created successfully',
