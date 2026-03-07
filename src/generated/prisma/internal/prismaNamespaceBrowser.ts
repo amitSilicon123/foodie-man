@@ -60,7 +60,8 @@ export const ModelName = {
   Influencer: 'Influencer',
   InfluencerCollaboration: 'InfluencerCollaboration',
   InfluencerReview: 'InfluencerReview',
-  Category: 'Category'
+  Category: 'Category',
+  CustomerAddress: 'CustomerAddress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -235,6 +236,22 @@ export const CategoryScalarFieldEnum = {
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const CustomerAddressScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  address: 'address',
+  locality: 'locality',
+  city: 'city',
+  zipCode: 'zipCode',
+  state: 'state',
+  country: 'country',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt'
+} as const
+
+export type CustomerAddressScalarFieldEnum = (typeof CustomerAddressScalarFieldEnum)[keyof typeof CustomerAddressScalarFieldEnum]
 
 
 export const SortOrder = {

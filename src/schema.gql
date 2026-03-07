@@ -212,7 +212,32 @@ type CategoryResponseWrapper {
   errors: [String!]
 }
 
+type CustomerInfoResponse {
+  id: BigInt!
+  name: String!
+  email: String!
+  phone: String!
+  customerAddress: [CustomerAddressResponse!]!
+}
+
+type CustomerAddressResponse {
+  id: BigInt!
+  address: String!
+  locality: String!
+  city: String!
+  zipCode: String!
+  isDefault: Boolean!
+}
+
+type CustomerResponseWrapper {
+  success: Boolean!
+  message: String!
+  data: CustomerInfoResponse
+  errors: [String!]
+}
+
 type Query {
+  customerDetails: CustomerResponseWrapper!
   healthCheck: String!
   vendors(categoryId: Int, rating: Float, minPrice: Float, maxPrice: Float, sortBy: String): VendorResponseWrapper!
   vendorDetail(id: ID!): SingleVendorResponse!

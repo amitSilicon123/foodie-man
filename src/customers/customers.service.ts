@@ -31,5 +31,25 @@ export class CustomersService {
     }
 
 
-
+    async getCustomerById(id: bigint){
+        return  this.prisma.user.findUnique({
+            where : { id: id},
+            select : {
+                id: true, 
+                name: true, 
+                phone: true,
+                email: true, 
+                customerAddress : {
+                    select : {
+                        id : true,
+                        address : true, 
+                        locality : true, 
+                        city : true,
+                        zipCode : true,
+                        isDefault : true,
+                    }
+                },
+            }  
+        })
+    }
 }

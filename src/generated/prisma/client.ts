@@ -89,3 +89,8 @@ export type InfluencerReview = Prisma.InfluencerReviewModel
  * 
  */
 export type Category = Prisma.CategoryModel
+/**
+ * Model CustomerAddress
+ * 
+ */
+export type CustomerAddress = Prisma.CustomerAddressModel

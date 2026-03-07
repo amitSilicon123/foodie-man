@@ -20,13 +20,16 @@ import { CaslModule } from './casl/casl.module';
 //import { GraphQLModule } from '@nestjs/graphql';
 //import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 //import { AppResolver } from './graphql/app.resolver';
-import { AuthResolver } from './graphql/auth/auth.resolver';
+//import { AuthResolver } from './graphql/auth/auth.resolver';
 import { GraphqlModule } from './graphql/graphql.module';
 
-import { join } from 'path';
+//import { join } from 'path';
 
 
 import { CategoryModule } from './category/category.module';
+import { CustomerResolver } from './graphql/customer/customer.resolver';
+import { CustomerModule } from './graphql/customer/customer.module';
+
 
 @Module({
     imports: [
@@ -42,7 +45,8 @@ import { CategoryModule } from './category/category.module';
       InfluencerModule, 
       ReviewModule, 
       CaslModule,
-      CategoryModule
+      CategoryModule,
+      CustomerModule
     ],
   //controllers: [AppController, AuthController],
   controllers: [
@@ -56,7 +60,7 @@ import { CategoryModule } from './category/category.module';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
-    }, CustomersService
+    }, CustomersService, CustomerResolver
   ],
 })
 export class AppModule {}

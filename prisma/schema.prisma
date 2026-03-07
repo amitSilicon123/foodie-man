@@ -24,6 +24,7 @@ model User {
   customerReview    CustomerReview[]
   influencer        Influencer?
   vendor            Vendor?
+  customerAddress   CustomerAddress[]
 
   @@index([email], map: "idx_user_email")
   @@map("users")
@@ -200,6 +201,25 @@ model Category {
   @@map("category")
 }
 
+model CustomerAddress {
+  id          Int   @id @default(autoincrement())
+  customerId  BigInt
+  address     String @db.Text
+  locality    String @db.VarChar(100)
+  city        String @db.VarChar(100)
+  zipCode     String @db.VarChar(20)
+  
+  state       String? @db.VarChar(50)
+  country     String? @db.VarChar(50)
+
+  isDefault   Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+
+  customer    User @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@map("customer_addresses")
+}
 
 enum AccountStatus {
   active

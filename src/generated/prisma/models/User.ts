@@ -260,6 +260,7 @@ export type UserWhereInput = {
   customerReview?: Prisma.CustomerReviewListRelationFilter
   influencer?: Prisma.XOR<Prisma.InfluencerNullableScalarRelationFilter, Prisma.InfluencerWhereInput> | null
   vendor?: Prisma.XOR<Prisma.VendorNullableScalarRelationFilter, Prisma.VendorWhereInput> | null
+  customerAddress?: Prisma.CustomerAddressListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -277,6 +278,7 @@ export type UserOrderByWithRelationInput = {
   customerReview?: Prisma.CustomerReviewOrderByRelationAggregateInput
   influencer?: Prisma.InfluencerOrderByWithRelationInput
   vendor?: Prisma.VendorOrderByWithRelationInput
+  customerAddress?: Prisma.CustomerAddressOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -297,6 +299,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   customerReview?: Prisma.CustomerReviewListRelationFilter
   influencer?: Prisma.XOR<Prisma.InfluencerNullableScalarRelationFilter, Prisma.InfluencerWhereInput> | null
   vendor?: Prisma.XOR<Prisma.VendorNullableScalarRelationFilter, Prisma.VendorWhereInput> | null
+  customerAddress?: Prisma.CustomerAddressListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -348,6 +351,7 @@ export type UserCreateInput = {
   customerReview?: Prisma.CustomerReviewCreateNestedManyWithoutCustomerInput
   influencer?: Prisma.InfluencerCreateNestedOneWithoutUserInput
   vendor?: Prisma.VendorCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -365,6 +369,7 @@ export type UserUncheckedCreateInput = {
   customerReview?: Prisma.CustomerReviewUncheckedCreateNestedManyWithoutCustomerInput
   influencer?: Prisma.InfluencerUncheckedCreateNestedOneWithoutUserInput
   vendor?: Prisma.VendorUncheckedCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type UserUpdateInput = {
@@ -382,6 +387,7 @@ export type UserUpdateInput = {
   customerReview?: Prisma.CustomerReviewUpdateManyWithoutCustomerNestedInput
   influencer?: Prisma.InfluencerUpdateOneWithoutUserNestedInput
   vendor?: Prisma.VendorUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -399,6 +405,7 @@ export type UserUncheckedUpdateInput = {
   customerReview?: Prisma.CustomerReviewUncheckedUpdateManyWithoutCustomerNestedInput
   influencer?: Prisma.InfluencerUncheckedUpdateOneWithoutUserNestedInput
   vendor?: Prisma.VendorUncheckedUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -572,6 +579,20 @@ export type UserUpdateOneRequiredWithoutInfluencerNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInfluencerInput, Prisma.UserUpdateWithoutInfluencerInput>, Prisma.UserUncheckedUpdateWithoutInfluencerInput>
 }
 
+export type UserCreateNestedOneWithoutCustomerAddressInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCustomerAddressInput, Prisma.UserUncheckedCreateWithoutCustomerAddressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustomerAddressInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCustomerAddressNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCustomerAddressInput, Prisma.UserUncheckedCreateWithoutCustomerAddressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustomerAddressInput
+  upsert?: Prisma.UserUpsertWithoutCustomerAddressInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCustomerAddressInput, Prisma.UserUpdateWithoutCustomerAddressInput>, Prisma.UserUncheckedUpdateWithoutCustomerAddressInput>
+}
+
 export type UserCreateWithoutVendorInput = {
   id?: bigint | number
   name: string
@@ -586,6 +607,7 @@ export type UserCreateWithoutVendorInput = {
   booking?: Prisma.BookingCreateNestedManyWithoutUserInput
   customerReview?: Prisma.CustomerReviewCreateNestedManyWithoutCustomerInput
   influencer?: Prisma.InfluencerCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerInput
 }
 
 export type UserUncheckedCreateWithoutVendorInput = {
@@ -602,6 +624,7 @@ export type UserUncheckedCreateWithoutVendorInput = {
   booking?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   customerReview?: Prisma.CustomerReviewUncheckedCreateNestedManyWithoutCustomerInput
   influencer?: Prisma.InfluencerUncheckedCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type UserCreateOrConnectWithoutVendorInput = {
@@ -634,6 +657,7 @@ export type UserUpdateWithoutVendorInput = {
   booking?: Prisma.BookingUpdateManyWithoutUserNestedInput
   customerReview?: Prisma.CustomerReviewUpdateManyWithoutCustomerNestedInput
   influencer?: Prisma.InfluencerUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVendorInput = {
@@ -650,6 +674,7 @@ export type UserUncheckedUpdateWithoutVendorInput = {
   booking?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   customerReview?: Prisma.CustomerReviewUncheckedUpdateManyWithoutCustomerNestedInput
   influencer?: Prisma.InfluencerUncheckedUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserCreateWithoutBookingInput = {
@@ -666,6 +691,7 @@ export type UserCreateWithoutBookingInput = {
   customerReview?: Prisma.CustomerReviewCreateNestedManyWithoutCustomerInput
   influencer?: Prisma.InfluencerCreateNestedOneWithoutUserInput
   vendor?: Prisma.VendorCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerInput
 }
 
 export type UserUncheckedCreateWithoutBookingInput = {
@@ -682,6 +708,7 @@ export type UserUncheckedCreateWithoutBookingInput = {
   customerReview?: Prisma.CustomerReviewUncheckedCreateNestedManyWithoutCustomerInput
   influencer?: Prisma.InfluencerUncheckedCreateNestedOneWithoutUserInput
   vendor?: Prisma.VendorUncheckedCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type UserCreateOrConnectWithoutBookingInput = {
@@ -714,6 +741,7 @@ export type UserUpdateWithoutBookingInput = {
   customerReview?: Prisma.CustomerReviewUpdateManyWithoutCustomerNestedInput
   influencer?: Prisma.InfluencerUpdateOneWithoutUserNestedInput
   vendor?: Prisma.VendorUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingInput = {
@@ -730,6 +758,7 @@ export type UserUncheckedUpdateWithoutBookingInput = {
   customerReview?: Prisma.CustomerReviewUncheckedUpdateManyWithoutCustomerNestedInput
   influencer?: Prisma.InfluencerUncheckedUpdateOneWithoutUserNestedInput
   vendor?: Prisma.VendorUncheckedUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserCreateWithoutCustomerReviewInput = {
@@ -746,6 +775,7 @@ export type UserCreateWithoutCustomerReviewInput = {
   booking?: Prisma.BookingCreateNestedManyWithoutUserInput
   influencer?: Prisma.InfluencerCreateNestedOneWithoutUserInput
   vendor?: Prisma.VendorCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerInput
 }
 
 export type UserUncheckedCreateWithoutCustomerReviewInput = {
@@ -762,6 +792,7 @@ export type UserUncheckedCreateWithoutCustomerReviewInput = {
   booking?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   influencer?: Prisma.InfluencerUncheckedCreateNestedOneWithoutUserInput
   vendor?: Prisma.VendorUncheckedCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type UserCreateOrConnectWithoutCustomerReviewInput = {
@@ -794,6 +825,7 @@ export type UserUpdateWithoutCustomerReviewInput = {
   booking?: Prisma.BookingUpdateManyWithoutUserNestedInput
   influencer?: Prisma.InfluencerUpdateOneWithoutUserNestedInput
   vendor?: Prisma.VendorUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCustomerReviewInput = {
@@ -810,6 +842,7 @@ export type UserUncheckedUpdateWithoutCustomerReviewInput = {
   booking?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   influencer?: Prisma.InfluencerUncheckedUpdateOneWithoutUserNestedInput
   vendor?: Prisma.VendorUncheckedUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserCreateWithoutInfluencerInput = {
@@ -826,6 +859,7 @@ export type UserCreateWithoutInfluencerInput = {
   booking?: Prisma.BookingCreateNestedManyWithoutUserInput
   customerReview?: Prisma.CustomerReviewCreateNestedManyWithoutCustomerInput
   vendor?: Prisma.VendorCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerInput
 }
 
 export type UserUncheckedCreateWithoutInfluencerInput = {
@@ -842,6 +876,7 @@ export type UserUncheckedCreateWithoutInfluencerInput = {
   booking?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   customerReview?: Prisma.CustomerReviewUncheckedCreateNestedManyWithoutCustomerInput
   vendor?: Prisma.VendorUncheckedCreateNestedOneWithoutUserInput
+  customerAddress?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type UserCreateOrConnectWithoutInfluencerInput = {
@@ -874,6 +909,7 @@ export type UserUpdateWithoutInfluencerInput = {
   booking?: Prisma.BookingUpdateManyWithoutUserNestedInput
   customerReview?: Prisma.CustomerReviewUpdateManyWithoutCustomerNestedInput
   vendor?: Prisma.VendorUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateManyWithoutCustomerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInfluencerInput = {
@@ -890,6 +926,91 @@ export type UserUncheckedUpdateWithoutInfluencerInput = {
   booking?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   customerReview?: Prisma.CustomerReviewUncheckedUpdateManyWithoutCustomerNestedInput
   vendor?: Prisma.VendorUncheckedUpdateOneWithoutUserNestedInput
+  customerAddress?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type UserCreateWithoutCustomerAddressInput = {
+  id?: bigint | number
+  name: string
+  phone: string
+  email: string
+  password: string
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accountStatus?: $Enums.AccountStatus
+  operationalStatus?: $Enums.OperationalStatus
+  booking?: Prisma.BookingCreateNestedManyWithoutUserInput
+  customerReview?: Prisma.CustomerReviewCreateNestedManyWithoutCustomerInput
+  influencer?: Prisma.InfluencerCreateNestedOneWithoutUserInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCustomerAddressInput = {
+  id?: bigint | number
+  name: string
+  phone: string
+  email: string
+  password: string
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accountStatus?: $Enums.AccountStatus
+  operationalStatus?: $Enums.OperationalStatus
+  booking?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  customerReview?: Prisma.CustomerReviewUncheckedCreateNestedManyWithoutCustomerInput
+  influencer?: Prisma.InfluencerUncheckedCreateNestedOneWithoutUserInput
+  vendor?: Prisma.VendorUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCustomerAddressInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCustomerAddressInput, Prisma.UserUncheckedCreateWithoutCustomerAddressInput>
+}
+
+export type UserUpsertWithoutCustomerAddressInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCustomerAddressInput, Prisma.UserUncheckedUpdateWithoutCustomerAddressInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCustomerAddressInput, Prisma.UserUncheckedCreateWithoutCustomerAddressInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCustomerAddressInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCustomerAddressInput, Prisma.UserUncheckedUpdateWithoutCustomerAddressInput>
+}
+
+export type UserUpdateWithoutCustomerAddressInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  operationalStatus?: Prisma.EnumOperationalStatusFieldUpdateOperationsInput | $Enums.OperationalStatus
+  booking?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  customerReview?: Prisma.CustomerReviewUpdateManyWithoutCustomerNestedInput
+  influencer?: Prisma.InfluencerUpdateOneWithoutUserNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCustomerAddressInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accountStatus?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  operationalStatus?: Prisma.EnumOperationalStatusFieldUpdateOperationsInput | $Enums.OperationalStatus
+  booking?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  customerReview?: Prisma.CustomerReviewUncheckedUpdateManyWithoutCustomerNestedInput
+  influencer?: Prisma.InfluencerUncheckedUpdateOneWithoutUserNestedInput
+  vendor?: Prisma.VendorUncheckedUpdateOneWithoutUserNestedInput
 }
 
 
@@ -900,11 +1021,13 @@ export type UserUncheckedUpdateWithoutInfluencerInput = {
 export type UserCountOutputType = {
   booking: number
   customerReview: number
+  customerAddress: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   booking?: boolean | UserCountOutputTypeCountBookingArgs
   customerReview?: boolean | UserCountOutputTypeCountCustomerReviewArgs
+  customerAddress?: boolean | UserCountOutputTypeCountCustomerAddressArgs
 }
 
 /**
@@ -931,6 +1054,13 @@ export type UserCountOutputTypeCountCustomerReviewArgs<ExtArgs extends runtime.T
   where?: Prisma.CustomerReviewWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCustomerAddressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerAddressWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -947,6 +1077,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   customerReview?: boolean | Prisma.User$customerReviewArgs<ExtArgs>
   influencer?: boolean | Prisma.User$influencerArgs<ExtArgs>
   vendor?: boolean | Prisma.User$vendorArgs<ExtArgs>
+  customerAddress?: boolean | Prisma.User$customerAddressArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -995,6 +1126,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   customerReview?: boolean | Prisma.User$customerReviewArgs<ExtArgs>
   influencer?: boolean | Prisma.User$influencerArgs<ExtArgs>
   vendor?: boolean | Prisma.User$vendorArgs<ExtArgs>
+  customerAddress?: boolean | Prisma.User$customerAddressArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1007,6 +1139,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     customerReview: Prisma.$CustomerReviewPayload<ExtArgs>[]
     influencer: Prisma.$InfluencerPayload<ExtArgs> | null
     vendor: Prisma.$VendorPayload<ExtArgs> | null
+    customerAddress: Prisma.$CustomerAddressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
@@ -1417,6 +1550,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   customerReview<T extends Prisma.User$customerReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$customerReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   influencer<T extends Prisma.User$influencerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$influencerArgs<ExtArgs>>): Prisma.Prisma__InfluencerClient<runtime.Types.Result.GetResult<Prisma.$InfluencerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   vendor<T extends Prisma.User$vendorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$vendorArgs<ExtArgs>>): Prisma.Prisma__VendorClient<runtime.Types.Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  customerAddress<T extends Prisma.User$customerAddressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$customerAddressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1927,6 +2061,30 @@ export type User$vendorArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   include?: Prisma.VendorInclude<ExtArgs> | null
   where?: Prisma.VendorWhereInput
+}
+
+/**
+ * User.customerAddress
+ */
+export type User$customerAddressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerAddress
+   */
+  select?: Prisma.CustomerAddressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerAddress
+   */
+  omit?: Prisma.CustomerAddressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerAddressInclude<ExtArgs> | null
+  where?: Prisma.CustomerAddressWhereInput
+  orderBy?: Prisma.CustomerAddressOrderByWithRelationInput | Prisma.CustomerAddressOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerAddressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerAddressScalarFieldEnum | Prisma.CustomerAddressScalarFieldEnum[]
 }
 
 /**
