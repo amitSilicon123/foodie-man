@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BookingStatus } from '../generated/prisma/client';
 import { CreateBookingInput } from '../graphql/booking/dto/booking-input.dto';
+import { triggerAsyncId } from 'node:async_hooks';
 @Injectable()
 export class BookingService {
     constructor(private prisma:PrismaService){}
@@ -16,6 +17,18 @@ export class BookingService {
         accountStatus: true,
         operationalStatus: true
     };
+
+    private safeBookingSelect = {
+        bookingCode : true,
+        bookingStatus: true, 
+        eventDate: true, 
+        guestCount: true, 
+        location: true, 
+        paidAmount : true, 
+        fullAmount : true, 
+        paymentOption : true,
+        description : true, 
+    }
 
     getCustomerBookings(){
         return this.prisma.booking.findMany({
@@ -50,12 +63,14 @@ export class BookingService {
     }
 
     // api for app developers
-    getCustomerBookingsByStatus(status: BookingStatus, isEqual : boolean){
+   // getCustomerBookingsByStatus(status: BookingStatus, isEqual : boolean){
+    getCustomerBookingsByStatus(){
         return this.prisma.booking.findMany({
-            where : {
-                bookingStatus : isEqual ? status : { not: status }
+            orderBy: {
+                createdAt: 'desc'
             },
-            include : {
+            select : {
+                ...this.safeBookingSelect,
                 user : {select : this.safeUserSelect},
                 vendor: {
                     include : {
@@ -105,18 +120,16 @@ export class BookingService {
                 //paymentOption: input.paymentOption,
             },
             select : {
-                bookingCode: true,
-                eventDate: true,  
-                guestCount: true,  
-                location: true, 
-                paidAmount: true, 
-                fullAmount: true,
-                paymentOption: true,
+               ...this.safeBookingSelect,
                 vendor : {
                     select : {
+                        id : true,
+                        address : true,
                         shopName : true,
                         user : {
                             select : {
+                                id : true,
+                                email : true,
                                 name : true,
                                 phone : true
                             }

@@ -19,34 +19,16 @@ export class CustomerResponse {
     email: string;
 }
 
-@ObjectType()
+/*@ObjectType()
 export class BookingResponse {
     @Field(() => GraphQLBigInt)
     id: bigint;
 
-    @Field(() => GraphQLBigInt)
-    vendorId: bigint;
+   // @Field(() => GraphQLBigInt)
+   // vendorId: bigint;
 
-    @Field(() => GraphQLBigInt)
-    customerId: bigint;
-
-    @Field(() => Date)
-    scheduledAt: string;
-
-    @Field()
-    advancePaid: Number;
-
-    @Field()
-    trackingCode: string;
-
-    @Field(() => Date)
-    createdAt: string;
-
-    @Field(() => Date)
-    updatedAt: string;
-
-    @Field()
-    amount: number;
+   // @Field(() => GraphQLBigInt)
+   // customerId: bigint;
 
     @Field()
     bookingCode: string;
@@ -58,22 +40,22 @@ export class BookingResponse {
     paymentStatus: string;
 
     @Field(() => Date)
-    serviceDate: string;
-
-    @Field()
-    serviceType: string;
+    eventDate: string;
 
     @Field(() => CustomerResponse)
     user: CustomerResponse;
 
     @Field(() => VendorDetailResponse)
     vendor : VendorDetailResponse
-}
+}*/
 
 @ObjectType()
 export class CustomerBookingResponse {
     @Field()
     bookingCode: string;
+
+    @Field()
+    bookingStatus : string;
     
     @Field(() => Date)   
     eventDate: string; 
@@ -96,7 +78,8 @@ export class CustomerBookingResponse {
     @Field(() => VendorDetailResponse)
     vendor : VendorDetailResponse 
 
-
+    @Field(() => CustomerResponse)
+    user: CustomerResponse;
 }
 
 

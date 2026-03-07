@@ -1,6 +1,6 @@
 import { Resolver, Query, Args, registerEnumType, Mutation, Context  } from '@nestjs/graphql';
 import { BookingService } from '../../booking/booking.service'
-import { BookingResponse } from './dto/booking-response.dto'
+//import { BookingResponse } from './dto/booking-response.dto'
 
 import { BookingResponseWrapper, CustomerBookingResponseWrapper } from './dto/booking-response-wrapper.dto';
 import { BookingStatus } from '../../generated/prisma/client';
@@ -19,11 +19,13 @@ export class BookingResolver {
     
     @Public()
     @Query(() => BookingResponseWrapper)
-    async customerBooking(
-        @Args('status', { type: () => BookingStatus }) status: BookingStatus,
-        @Args('isEqual', { type: () => Boolean }) isEqual: boolean,
-        ): Promise<BookingResponseWrapper> {
-            const bookings = await this.bookingService.getCustomerBookingsByStatus(status, isEqual);
+    /*async customerBooking(
+        @Args('status', { type: () => BookingStatus }) status?: BookingStatus,
+        @Args('isEqual', { type: () => Boolean }) isEqual?: boolean,
+        ): Promise<BookingResponseWrapper> {*/
+        async customerBooking(): Promise<BookingResponseWrapper> {
+            //const bookings = await this.bookingService.getCustomerBookingsByStatus(status, isEqual);
+            const bookings = await this.bookingService.getCustomerBookingsByStatus();
             return {
                 success: true,
                 message: 'booking fetched successfully',

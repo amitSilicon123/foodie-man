@@ -153,27 +153,9 @@ type CustomerResponse {
   email: String!
 }
 
-type BookingResponse {
-  id: BigInt!
-  vendorId: BigInt!
-  customerId: BigInt!
-  scheduledAt: DateTime!
-  advancePaid: Float!
-  trackingCode: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  amount: Float!
-  bookingCode: String!
-  bookingStatus: String!
-  paymentStatus: String!
-  serviceDate: DateTime!
-  serviceType: String!
-  user: CustomerResponse!
-  vendor: VendorDetailResponse!
-}
-
 type CustomerBookingResponse {
   bookingCode: String!
+  bookingStatus: String!
   eventDate: DateTime!
   guestCount: Float!
   location: String!
@@ -181,12 +163,13 @@ type CustomerBookingResponse {
   fullAmount: Float!
   paymentOption: String!
   vendor: VendorDetailResponse!
+  user: CustomerResponse!
 }
 
 type BookingResponseWrapper {
   success: Boolean!
   message: String!
-  data: [BookingResponse!]
+  data: [CustomerBookingResponse!]
   errors: [String!]
 }
 
@@ -243,17 +226,8 @@ type Query {
   vendorDetail(id: ID!): SingleVendorResponse!
   trendingVendor: TrendingVendorResponseWrapper!
   influencers: InfluencerResponseWrapper!
-  customerBooking(status: BookingStatus!, isEqual: Boolean!): BookingResponseWrapper!
+  customerBooking: BookingResponseWrapper!
   getActiveCategories: CategoryResponseWrapper!
-}
-
-enum BookingStatus {
-  request
-  accepted
-  declined
-  completed
-  cancelled
-  refunded
 }
 
 type Mutation {
