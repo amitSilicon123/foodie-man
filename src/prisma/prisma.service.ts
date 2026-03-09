@@ -31,7 +31,7 @@ export class PrismaService
   constructor() {
   //  const conn = process.env.DATABASE_URL;
     const conn = 'postgresql://postgres:ECAGJOWCOEqNzxgUgqkdVQKpNuGDlsvi@tramway.proxy.rlwy.net:20285/railway';
-    //  const conn = 'postgresql://postgres:something@localhost:5432/test?schema=public&connection_limit=10';
+     // const conn = 'postgresql://postgres:something@localhost:5432/test?schema=public&connection_limit=10';
 
     const pool = new PrismaPg({
       connectionString: String(conn),

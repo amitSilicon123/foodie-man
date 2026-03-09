@@ -83,7 +83,8 @@ export class VendorResolver {
     async favoriteVendors(
         @Context() context : any
     ): Promise<FavoriteVendorResponseWrapper> {
-        const customerId = context.req.user.id;
+        const customerId = context.req.user.sub;
+        
         const favorite_vendors = await this.vendorService.getFavoriteVendors(customerId);
        
         return {
