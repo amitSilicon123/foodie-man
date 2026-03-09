@@ -25,6 +25,7 @@ model User {
   influencer        Influencer?
   vendor            Vendor?
   customerAddress   CustomerAddress[]
+  favoriteVendor    FavoriteVendor[]
 
   @@index([email], map: "idx_user_email")
   @@map("users")
@@ -52,6 +53,7 @@ model Vendor {
   user                    User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   category    Category @relation(fields: [categoryId], references: [id])
+  favoriteVendor          FavoriteVendor[]
   @@map("vendors")
 }
 
@@ -219,6 +221,17 @@ model CustomerAddress {
   customer    User @relation(fields: [customerId], references: [id], onDelete: Cascade)
 
   @@map("customer_addresses")
+}
+
+model FavoriteVendor {
+  id          BigInt @id @default(autoincrement())
+  customerId  BigInt
+  vendorId    BigInt
+  createdAt   DateTime @default(now())
+
+  customer User @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  @@map("favorite_vendors")
 }
 
 enum AccountStatus {

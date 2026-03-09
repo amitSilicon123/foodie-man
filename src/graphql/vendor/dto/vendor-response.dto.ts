@@ -194,3 +194,23 @@ export class TrendingVendorResponse {
 }
 
 
+@ObjectType()
+export class FavoriteVendorResponse {
+  @Field(() => GraphQLBigInt)
+  id: bigint
+
+  @Field(() => GraphQLBigInt)
+  customerId: bigint;
+
+  @Field(() => GraphQLBigInt)
+  vendorId: bigint;
+
+  @Field(() => Date)
+  createdAt: Date;
+
+  @Field(() => VendorInfoResponse, {nullable : true})
+  vendor?: VendorInfoResponse;
+
+  @Field(() => UserResponse, {nullable : true})
+  customer?: UserResponse;
+}

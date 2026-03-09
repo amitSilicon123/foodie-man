@@ -30,7 +30,7 @@ import {
           footer: false,
         }),
       ],
-      formatError: (error) => {
+      /*formatError: (error) => {
         const message = error.message;
 
         // extract field name
@@ -47,7 +47,7 @@ import {
           message: cleanMessage,
           code: error.extensions?.code,
         };
-      }   
+      }  */ 
       /*formatError: (error) => ({
         message: error.message,
         code: error.extensions?.code,

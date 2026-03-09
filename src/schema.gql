@@ -97,6 +97,15 @@ type TrendingVendorResponse {
   influencer: InfluencerResponses
 }
 
+type FavoriteVendorResponse {
+  id: BigInt!
+  customerId: BigInt!
+  vendorId: BigInt!
+  createdAt: DateTime!
+  vendor: VendorInfoResponse
+  customer: UserResponse
+}
+
 type VendorResponseWrapper {
   success: Boolean!
   message: String!
@@ -115,6 +124,13 @@ type TrendingVendorResponseWrapper {
   success: Boolean!
   message: String!
   data: [TrendingVendorResponse!]
+  errors: [String!]
+}
+
+type FavoriteVendorResponseWrapper {
+  success: Boolean!
+  message: String!
+  data: [FavoriteVendorResponse!]
   errors: [String!]
 }
 
@@ -225,6 +241,7 @@ type Query {
   vendors(categoryId: Int, rating: Float, minPrice: Float, maxPrice: Float, sortBy: String): VendorResponseWrapper!
   vendorDetail(id: ID!): SingleVendorResponse!
   trendingVendor: TrendingVendorResponseWrapper!
+  favoriteVendors: FavoriteVendorResponseWrapper!
   influencers: InfluencerResponseWrapper!
   customerBooking: BookingResponseWrapper!
   getActiveCategories: CategoryResponseWrapper!

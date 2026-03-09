@@ -72,3 +72,8 @@ export type Category = Prisma.CategoryModel
  * 
  */
 export type CustomerAddress = Prisma.CustomerAddressModel
+/**
+ * Model FavoriteVendor
+ * 
+ */
+export type FavoriteVendor = Prisma.FavoriteVendorModel

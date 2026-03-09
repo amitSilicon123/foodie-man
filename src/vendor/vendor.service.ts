@@ -140,11 +140,27 @@ export class VendorService {
     
     })
   }
+
+  getFavoriteVendors(customerId: number){
+    return this.prisma.favoriteVendor.findMany({
+      where : {
+        customerId : customerId
+      },
+      select : {
+        id : true,
+        customerId : true, 
+        vendorId : true,
+        createdAt : true,
+     // include : {
+        customer : true,
+        vendor : {
+          include : {
+            user : true,
+          }
+        }
+     // }
+    }
+    })
+  }
 }
-  /*select : {
-        vendorId: true, 
-        influencerId: true,
-        rating: true,
-        mediaUrl:true,
-        mediaType:true,
-      } */
+  

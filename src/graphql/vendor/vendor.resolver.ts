@@ -1,10 +1,11 @@
-import { Resolver, Query, Args, ID, Int, Float } from '@nestjs/graphql';
+import { Resolver, Query, Args, ID, Int, Float, Context } from '@nestjs/graphql';
 import { VendorService } from '../../vendor/vendor.service';
 import { Public } from '../../auth/auth.guard';
 //import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
-import { VendorResponseWrapper, SingleVendorResponse, TrendingVendorResponseWrapper } from './dto/vendor-response-wrapper.dto';
+import { VendorResponseWrapper, SingleVendorResponse, TrendingVendorResponseWrapper, FavoriteVendorResponseWrapper } from './dto/vendor-response-wrapper.dto';
 import { VendorResponse } from './dto/vendor-response.dto';
 import { VendorFilterInput } from './dto/vendor-filter-input.dto';
+import { Contains } from 'class-validator';
 @Resolver(() => VendorResponse) 
 export class VendorResolver {
 
@@ -68,13 +69,30 @@ export class VendorResolver {
     @Query(() => TrendingVendorResponseWrapper)
     async trendingVendor() : Promise<TrendingVendorResponseWrapper> {
         const trending_vendors = await this.vendorService.trendingVendor();
-       // console.log(trending_vendors);
+      
         return {
             success: true,
             message: 'Trending Vendor fetched successfully',
             data : trending_vendors as any
         }
     }
+
+    //@Public()
+
+    @Query(() => FavoriteVendorResponseWrapper)
+    async favoriteVendors(
+        @Context() context : any
+    ): Promise<FavoriteVendorResponseWrapper> {
+        const customerId = context.req.user.id;
+        const favorite_vendors = await this.vendorService.getFavoriteVendors(customerId);
+       
+        return {
+            success: true,
+            message: 'Favorite vendors fetched successfully',
+            data: favorite_vendors as any
+        };
+    }
+
 
 
 }
