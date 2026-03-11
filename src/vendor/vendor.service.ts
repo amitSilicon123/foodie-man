@@ -135,7 +135,11 @@ export class VendorService {
             user : true
           }
         },
-        influencer: true
+        influencer: {
+           include : {
+            user : true
+           }
+        }
       },
     
     })
