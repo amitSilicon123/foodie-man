@@ -24,7 +24,9 @@ export class AuthController {
     @Public()
     @Post('login')
     async login(@Body() loginInput: LoginInput){
+        console.log("sdafasdfasd");
         const result = await this.authService.signIn(loginInput.email, loginInput.password); 
+        
         if(!result){
             throw new UnauthorizedException('Invalid credentials')
         }

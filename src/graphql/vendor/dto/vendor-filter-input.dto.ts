@@ -1,7 +1,7 @@
 
 import { ObjectType, Field, InputType, Float, Int, ArgsType  } from '@nestjs/graphql';
 import { GraphQLBigInt } from 'graphql-scalars';
-
+import { IsNotEmpty, IsInt, IsNumber  } from 'class-validator';
 
 @InputType() // 🔥 THIS IS MANDATORY
 //@ArgsType()
@@ -35,4 +35,19 @@ export class VendorFilterInput {
 
     
   
+}
+
+
+@InputType()
+export class CreateInputFavoriteVendor {
+    @Field(() => Int)
+    @IsNumber()
+    vendorId: number;
+}
+
+@InputType() 
+export class InputDeleteFavoriteVendor{
+    @Field(() => Int)
+    @IsNumber()
+    favoriteVendorId: number;
 }

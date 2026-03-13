@@ -166,5 +166,39 @@ export class VendorService {
     }
     })
   }
+
+  setFavoriteVendors(vendorId: number, customerId:number){
+    return this.prisma.favoriteVendor.create({
+      data : {
+        vendorId : Number(vendorId),
+        customerId : Number(customerId)
+      },
+      select : {
+        id : true,
+        vendor : {
+          include : {
+            user : true,
+          }
+        }
+      }
+    })
+  }
+
+  async removeFavoriteVendor(favoriteVendorid: number, customerId: number) {
+
+    const favorite = await this.prisma.favoriteVendor.findUnique({
+      where: { id: Number(favoriteVendorid) },
+    });
+
+    if (!favorite) {
+      throw new Error('Favorite vendor not found');
+    }
+
+    await this.prisma.favoriteVendor.deleteMany({
+      where: { id: Number(favoriteVendorid) }
+    });
+
+    return await this.getFavoriteVendors(customerId);
+  }
 }
   

@@ -54,7 +54,7 @@ import { CustomerModule } from './graphql/customer/customer.module';
     CustomersController
   ],
   providers: [
-    AuthModule, 
+  //  AuthModule, 
     AppService, 
     UserService , 
     {

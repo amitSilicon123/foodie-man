@@ -232,6 +232,8 @@ model FavoriteVendor {
   customer User @relation(fields: [customerId], references: [id], onDelete: Cascade)
   vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   @@map("favorite_vendors")
+
+  @@unique([vendorId, customerId])
 }
 
 enum AccountStatus {

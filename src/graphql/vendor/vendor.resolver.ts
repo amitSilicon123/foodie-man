@@ -1,10 +1,10 @@
-import { Resolver, Query, Args, ID, Int, Float, Context } from '@nestjs/graphql';
+import { Resolver, Query, Args, ID, Int, Float, Context, Mutation } from '@nestjs/graphql';
 import { VendorService } from '../../vendor/vendor.service';
 import { Public } from '../../auth/auth.guard';
 //import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
-import { VendorResponseWrapper, SingleVendorResponse, TrendingVendorResponseWrapper, FavoriteVendorResponseWrapper } from './dto/vendor-response-wrapper.dto';
+import { VendorResponseWrapper, SingleVendorResponse, TrendingVendorResponseWrapper, FavoriteVendorResponseWrapper, CreateFavoriteVendorResponseWrapper } from './dto/vendor-response-wrapper.dto';
 import { VendorResponse } from './dto/vendor-response.dto';
-import { VendorFilterInput } from './dto/vendor-filter-input.dto';
+import { VendorFilterInput, CreateInputFavoriteVendor, InputDeleteFavoriteVendor } from './dto/vendor-filter-input.dto';
 import { Contains } from 'class-validator';
 @Resolver(() => VendorResponse) 
 export class VendorResolver {
@@ -77,23 +77,49 @@ export class VendorResolver {
         }
     }
 
-    //@Public()
+
 
     @Query(() => FavoriteVendorResponseWrapper)
     async favoriteVendors(
         @Context() context : any
     ): Promise<FavoriteVendorResponseWrapper> {
         const customerId = context.req.user.sub;
-        
         const favorite_vendors = await this.vendorService.getFavoriteVendors(customerId);
-       
-        return {
+       return {
             success: true,
             message: 'Favorite vendors fetched successfully',
             data: favorite_vendors as any
         };
     }
 
+
+    @Mutation(() => CreateFavoriteVendorResponseWrapper)
+    async createFavoriteVendors(
+        @Args('input') input : CreateInputFavoriteVendor,
+        @Context() context : any
+    ): Promise<CreateFavoriteVendorResponseWrapper>{
+        const customerId = context.req.user.sub;
+        const favorite_vendors = await this.vendorService.setFavoriteVendors(input.vendorId, customerId);
+        return {
+            success: true,
+            message: 'Favorite vendors created successfully',
+            data: favorite_vendors as any
+        };
+    }
+
+    @Mutation(() => FavoriteVendorResponseWrapper)
+    async removeFavoriteVendors(
+        @Args('input') input : InputDeleteFavoriteVendor,
+        @Context() context : any,
+    ) : Promise<FavoriteVendorResponseWrapper> {
+        const customerId = context.req.user.sub;
+        const favorite_vendor = await this.vendorService.removeFavoriteVendor(input.favoriteVendorId, customerId);
+        return {
+            success: true,
+            message: 'Favorite vendor removed successfully',
+            data: favorite_vendor as any
+        };
+    }
 
 
 }

@@ -231,6 +231,7 @@ export type FavoriteVendorOrderByWithRelationInput = {
 
 export type FavoriteVendorWhereUniqueInput = Prisma.AtLeast<{
   id?: bigint | number
+  vendorId_customerId?: Prisma.FavoriteVendorVendorIdCustomerIdCompoundUniqueInput
   AND?: Prisma.FavoriteVendorWhereInput | Prisma.FavoriteVendorWhereInput[]
   OR?: Prisma.FavoriteVendorWhereInput[]
   NOT?: Prisma.FavoriteVendorWhereInput | Prisma.FavoriteVendorWhereInput[]
@@ -239,7 +240,7 @@ export type FavoriteVendorWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"FavoriteVendor"> | Date | string
   customer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   vendor?: Prisma.XOR<Prisma.VendorScalarRelationFilter, Prisma.VendorWhereInput>
-}, "id">
+}, "id" | "vendorId_customerId">
 
 export type FavoriteVendorOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -318,6 +319,11 @@ export type FavoriteVendorListRelationFilter = {
 
 export type FavoriteVendorOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type FavoriteVendorVendorIdCustomerIdCompoundUniqueInput = {
+  vendorId: bigint | number
+  customerId: bigint | number
 }
 
 export type FavoriteVendorCountOrderByAggregateInput = {

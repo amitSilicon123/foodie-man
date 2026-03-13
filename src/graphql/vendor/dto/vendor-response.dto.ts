@@ -214,3 +214,12 @@ export class FavoriteVendorResponse {
   @Field(() => UserResponse, {nullable : true})
   customer?: UserResponse;
 }
+
+@ObjectType() 
+  export class CreateFavoriteVendorResponse {
+  @Field(() => GraphQLBigInt)
+  id: bigint
+    
+  @Field(() => VendorInfoResponse, {nullable : true})
+  vendor?:VendorInfoResponse
+}
